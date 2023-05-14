@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>File Compression</title>
+  <title>Simple File Compression</title>
   <style>
  body {
+  background-color: #343540;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
   margin: 0;
 }
 
 .container {
-  max-width: 400px;
-  padding: 20px;
-  background-color: #fff;
+  max-width: 800px;
+  padding: 40px;
+  background-color: #343540;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   text-align: center;
   margin-bottom: 20px;
+  color: white;
 }
 
 .upload-section {
@@ -38,12 +38,27 @@
 
 .upload-label {
   padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border-radius: 4px;
   cursor: pointer;
+  background-color: #343540;
+  border-radius: 5px;
+  border: solid 2px;
+  border-color: #57586A;
+  width: auto;
+  color: #57586A;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
-
+        .upload-label:hover {
+			background-color: #424350;
+            transition: background-color 0.2s ease-in-out;
+			border: solid 2px;
+		}
+		.upload-label:active {
+			background-color: #333;
+			border: solid 2px;
+		}
+      
 .slider-section {
   display: flex;
   align-items: center;
@@ -52,49 +67,116 @@
 
 .slider-label {
   margin-right: 10px;
+  color: white;
+  animation: 
 }
 
 .slider {
-  width: 100%;
+  width: auto;
+  width: inherit;
 }
 
 .slider-value {
   margin-left: 10px;
+  text-align: right; /* Align the text to the right */
+  color: white;
 }
+
 
 .compress-button {
   display: block;
-  width: 100%;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    background-color: #0ca37f;
+            border-radius: 5px;
+			border: solid 2px;
+            border-color: #43DBB7;
+            color: white;
+			cursor: pointer;
+			font-size: 16px;
+            width: 120px;
+            min-width: 10px;
+			padding: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.compress-button:hover {
+			background-color: #2FD0A4;
+            border-color: #35EDBB;
+			border: solid 2px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+		}
+.compress-button:active {
+			background-color: #1B7F64;
+            border-color: #35EDBB;
+			border: solid 2px;
+		}
 .download-link {
-  display: block;
+ display: block;
+ background-color: #0ca37f;
+ border-radius: 5px;
+ border: solid 2px;
+ border-color: #43DBB7;
+ color: white;
+ cursor: pointer;
+  font-size: 16px;
+  width: 225px;
+  padding: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   text-align: center;
-  color: #4CAF50;
   text-decoration: none;
 }
+.download-link:hover {
+			background-color: #2FD0A4;
+            border-color: #35EDBB;
+			border: solid 2px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+		}
+.download-link:active {
+			background-color: #1B7F64;
+            border-color: #35EDBB;
+			border: solid 2px;
+		}
+.overlay-container {
+  position: absolute;
+  top: 345px;
+  z-index: 1; /* Add a higher z-index to bring it in front of other elements */
+}
 
+.compressed-image {
+  width: 100%;
+  height: 100%;
+  top: 10px;
+  object-fit: cover;
+  opacity: 0%;
+  transition:0.2s ease-in-out;
+}
+.uncompressed-image {
+    width: 100%;
+  height: 100%;
+  top: 10px;
+  object-fit: cover;
+  opacity: 100%;
+}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 class="title">File Compression</h1>
+ <img src="title2.jpg" "unCompressed Image" id="uncompressedImage" class="uncompressed-image">
+       <div class="overlay-container">
+    <img src="title.jpg" "Compressed Image" id="compressedImage" class="compressed-image">
+  </div>
     <div class="upload-section">
       <input type="file" id="fileInput" class="upload-input">
       <label for="fileInput" class="upload-label">Select File</label>
     </div>
-    <div class="slider-section">
+    <div class="slider-section">  
       <label for="compressionSlider" class="slider-label">Compression Amount:</label>
       <input type="range" id="compressionSlider" min="1" max="100" value="80" class="slider">
       <span id="compressionValue" class="slider-value">80%</span>
     </div>
+         <div class="blank-image">
+    <img src="blank.jpg" "blankimage" id="blanimage" class="blank-image">
+  </div>
     <button onclick="compressAndDownload()" class="compress-button">Compress</button>
     <a id="downloadLink" href="#" download class="download-link">Download Compressed File</a>
   </div>
@@ -146,6 +228,28 @@ function compressAndDownload() {
 
   reader.readAsDataURL(file);
 }
+// Add this code after the compressAndDownload() function
+
+// Get the compression slider and its value element
+const compressionSlider = document.getElementById('compressionSlider');
+const compressionValue = document.getElementById('compressionValue');
+
+// Update the compression value element when the slider value changes
+compressionSlider.addEventListener('input', function () {
+  const sliderValue = compressionSlider.value;
+  compressionValue.textContent = `${sliderValue}%`;
+});
+// Add this code after the existing event listener for the compression slider
+
+// Get the compressed image element
+const compressedImage = document.getElementById('compressedImage');
+
+// Update the image's opacity when the slider value changes
+compressionSlider.addEventListener('input', function () {
+  const opacity = parseInt(compressionSlider.value) / 100;
+  compressedImage.style.opacity = opacity;
+});
+
     </script>
 </body>
 </html>
