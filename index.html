@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Compression</title>
+  <style>
+ body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+.container {
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.upload-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.upload-input {
+  display: none;
+}
+
+.upload-label {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.slider-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.slider-label {
+  margin-right: 10px;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slider-value {
+  margin-left: 10px;
+}
+
+.compress-button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-link {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">File Compression</h1>
+    <div class="upload-section">
+      <input type="file" id="fileInput" class="upload-input">
+      <label for="fileInput" class="upload-label">Select File</label>
+    </div>
+    <div class="slider-section">
+      <label for="compressionSlider" class="slider-label">Compression Amount:</label>
+      <input type="range" id="compressionSlider" min="1" max="100" value="80" class="slider">
+      <span id="compressionValue" class="slider-value">80%</span>
+    </div>
+    <button onclick="compressAndDownload()" class="compress-button">Compress</button>
+    <a id="downloadLink" href="#" download class="download-link">Download Compressed File</a>
+  </div>
+
+  <script>
+function compressAndDownload() {
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert('Please select a file.');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+    const image = new Image();
+    image.onload = function () {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      const width = image.width;
+      const height = image.height;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      context.drawImage(image, 0, 0, width, height);
+
+      const compressionSlider = document.getElementById('compressionSlider');
+      const compressionValue = document.getElementById('compressionValue');
+      const compressionAmount = (100 - parseInt(compressionSlider.value)) / 100; // Invert the slider value
+
+      // Convert the canvas image to a Blob
+      canvas.toBlob(function (blob) {
+        const url = URL.createObjectURL(blob);
+
+        const downloadLink = document.getElementById('downloadLink');
+        downloadLink.href = url;
+        downloadLink.download = "compressed.jpg"; // Set the filename to "compressed.jpg"
+      }, "image/jpeg", compressionAmount); // Set the image format to JPEG and the image quality based on the compression amount
+
+      compressionValue.textContent = `${compressionSlider.value}%`; // Update the displayed compression value
+    };
+
+    image.src = event.target.result;
+  };
+
+  reader.readAsDataURL(file);
+}
+    </script>
+</body>
+</html>
