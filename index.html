@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple File Compression</title>
+  <style>
+ body {
+  background-color: #16181d;
+  display: flex;
+  justify-content: center;
+  align-items: cente r;
+  height: 100vh;
+  margin: 0;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  padding: 40px;
+  background-color: #16181d;
+  border-radius: 8px;    
+  font-family: 'Inter', sans-serif;
+
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+      
+.blank {
+  opacity: 0%;
+}
+
+.upload-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.upload-input {
+  display: none;
+}
+
+.upload-label {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #343540;
+  border-radius: 5px;
+  border: solid 2px;
+  border-color: #57586A;
+  width: auto;
+  color: #57586A;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+        .upload-label:hover {
+			background-color: #424350;
+            transition: background-color 0.2s ease-in-out;
+			border: solid 2px;
+		}
+		.upload-label:active {
+			background-color: #333;
+			border: solid 2px;
+		}
+      
+.slider-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.slider-label {
+  margin-right: 10px;
+  color: white;
+  animation: 
+}
+
+.slider {
+  width: auto;
+  width: inherit;
+}
+
+.slider-value {
+  margin-left: 10px;
+  text-align: right; /* Align the text to the right */
+  color: white;
+}
+
+
+.compress-button {
+ display: block;
+ background-color: #1d2333;
+ border-radius: 8px;
+ border-style: solid;
+ border-color: #1d2333;
+ color: white;
+ cursor: pointer;
+ font-size: 16px;
+ width: 125px;
+ padding: 11px 16px;
+ box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0);
+ margin-top: 10px;
+ text-align: center;
+ text-decoration: none;
+ font-family: 'Inter', sans-serif;
+
+}
+
+.compress-button:hover {
+			transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease;
+            box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
+		}
+      
+.compress-button:active {
+			background-color: #1B7F64;
+			transform: scale(0.95);
+            transition: transform 0.2s ease;
+		}
+      
+.download-link {
+ display: block;
+ background-color: #5686f5;
+ border-radius: 8px;
+ color: white;
+ cursor: pointer;
+ font-size: 16px;
+ width: 125px;
+ padding: 11px 16px;
+ box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0);
+ margin-top: 40px;
+ text-align: center;
+ text-decoration: none;
+}
+.download-link:hover {
+            transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease;
+            box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
+		}
+.download-link:active {
+			transform: scale(0.95);
+            transition: transform 0.2s ease;
+		}
+.overlay-container {
+  position: absolute;
+  top: 345px;
+  z-index: 1; /* Add a higher z-index to bring it in front of other elements */
+}
+
+.compressed-image {
+  width: 100%;
+  height: 100%;
+  top: 10px;
+  object-fit: cover;
+  opacity: 0%;
+  transition:0.2s ease-in-out;
+}
+.uncompressed-image {
+    width: 100%;
+  height: 100%;
+  top: 10px;
+  object-fit: cover;
+  opacity: 100%;
+}
+.drag-drop-box {
+  border: 2px dashed #57586A;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.drag-drop-box.hover {
+  background-color: #424350;
+}
+.drop-container {
+max-width: 650px;
+width: 120%;
+padding: 20px;
+border-color: #23272f;
+color: #8e8e9f;
+border-radius: 10px; 
+}
+
+.drag-area {
+height: 200px;
+max-width: 400px;
+border: 2px dashed #57586A;
+display: flex;
+align-items: center;
+border-radius: 5px;
+justify-content: center;
+flex-direction: column;
+margin: 10px auto;
+transition: border 0.3s ease;  
+}
+      
+.drag-area:hover {
+height: 200px;
+max-width: 400px;
+border: 2px dashed white;
+color: white;
+display: flex;
+align-items: center;
+border-radius: 5px;
+justify-content: center;
+flex-direction: column;
+margin: 10px auto;
+color: white;
+transition: color 0.3s ease; 
+}
+      
+.h3 {
+color: white;
+}
+.drag-area .drag-area2{
+    background: ;
+    top: 10px;
+    width: 40px;
+    left: 10px;
+    transform: translateY(75px) scale(10);
+    transition: transform 0.5s ease;     
+}
+.drag-area .drag-area2:hover {
+    align-content: center;      
+   transform: translateY(72px) scale(10.25);   
+    transition: transform 0.3s ease;
+
+}
+.drag-area .upload{
+    top: 10px;
+    left: 10px;
+    transform: translateY(-10px) scale(0.175) rotate(-90deg);  
+}
+      
+.drag-area .header {
+line-height: 25px;  
+}
+     
+.drag-area .support {
+    font-size: 12px;      
+    color: #57586A;  
+    margin: 6px;
+}
+      
+.drag-area .button {
+    text-decoration: underline;  
+    cursor: pointer;
+    position: relative;
+    align-content: center;
+    z-index: 100;
+}
+      .drag-area.active {
+          border:  2px solid white;
+      }
+      
+      .drag-area img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          
+      }
+     .deep-fry {
+  font-family: 'Inter', sans-serif;
+  display: block;
+  margin-top: 10px;
+  background-color: #1d2333;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #1d2333;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  width: 140px;
+  min-width: 10px;
+  padding: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0);
+  transition: filter 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+  padding-left: 22px; /* Adjust the value as needed */
+} 
+      .deep-fry:hover {
+          filter:w saturate(500%) contrast(100%);
+          transition: filter 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
+
+      }
+      
+     .deep-fry:active { 
+      			transform: scale(0.95);
+            transition: transform 0.2s ease;
+      } 
+  .deep-fry .icon {
+  /* Fryer */
+  transform: translateX(15px) translateY(-0px);
+  top: 10px;
+  margin: -8px;
+  margin-right: 5px;
+  color: #5686f5;
+  width: 25%;
+  height: 25%;
+  z-index: 3;
+}
+
+.deep-fry .icon2 {
+  /* Pot */
+  transform: translateX(2px) translateY(-10px);
+  margin: -18px;
+  color: #5686f5;
+  width: 25%;
+  height: 25%;
+}  
+      .deep-fry img {
+    filter: saturate(5) contrast(5); /* Adjust the values as desired */
+  }
+  </style>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="upload-section">
+       <div class="drop-container">
+     <h3>Upload your File</h3>
+        <div for="fileInput" id="fileInput" class="drag-area">
+         <div class="drag-area2">
+          <div class="upload">
+             <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          </div>
+         </div>
+         <span class="header"> Drag & Drop</span>
+         <span class="header">or <span class="button">browse</span></span>
+         <span class="support">Supports: JPEG, JPG, PNG</span>
+        </div>        
+     </div>
+    </div>
+    <div class="slider-section">  
+      <label for="compressionSlider" class="slider-label">Compression Amount:</label>
+      <input type="range" id="compressionSlider" min="1" max="100" value="80" class="slider">
+      <span id="compressionValue" class="slider-value">80%</span>
+    </div>
+         <div class="blank-image">
+    <img class="blank" src="blank.jpg" "blankimage" id="blankimage" class="blank-image">
+  </div>
+    <button onclick="compressAndDownload()" class="compress-button">Compress</button>
+      <button onclick="deepFryAndDownload()" class="deep-fry">Deep Fry<img class="icon" src="deepfry1.svg"><img class="icon2" src="deepfry2.svg"></button>
+    <a id="downloadLink" href="#" download class="download-link"><div><svg width="22" height="22" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"><path d="M21 15.5736V19.5736C21 20.104 20.7893 20.6127 20.4142 20.9878C20.0391 21.3629 19.5304 21.5736 19 21.5736H5C4.46957 21.5736 3.96086 21.3629 3.58579 20.9878C3.21071 20.6127 3 20.104 3 19.5736V15.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 10.5736L12 15.5736L17 10.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 15.5736V3.57361" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Download</a>
+  </div>
+
+  <script>
+function compressAndDownload() {
+  const dragArea = document.querySelector('.drag-area');
+
+  if (!dragArea.innerHTML) {
+    alert('Please drop an image file.');
+    return;
+  }
+
+  const image = dragArea.querySelector('img');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  const width = image.width;
+  const height = image.height;
+
+  canvas.width = width;
+  canvas.height = height;
+
+  context.drawImage(image, 0, 0, width, height);
+
+  const compressionSlider = document.getElementById('compressionSlider');
+  const compressionValue = document.getElementById('compressionValue');
+  const compressionAmount = (100 - parseInt(compressionSlider.value)) / 100;
+
+  canvas.toBlob(function (blob) {
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.getElementById('downloadLink');
+    downloadLink.href = url;
+    downloadLink.download = "compressed.jpg";
+  }, "image/jpeg", compressionAmount);
+
+  compressionValue.textContent = `${compressionSlider.value}%`;
+}
+
+// DEEP FRY CODE
+function deepFryAndDownload() {
+      const dragArea = document.querySelector('.drag-area');
+
+      if (!dragArea.innerHTML) {
+        alert('Please drop an image file.');
+        return;
+      }
+
+      const image = dragArea.querySelector('img');
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      const width = image.width;
+      const height = image.height;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      context.drawImage(image, 0, 0, width, height);
+
+      // Apply saturation and contrast adjustments
+      context.filter = 'saturate(500%) contrast(500%)';
+
+      const compressionSlider = document.getElementById('compressionSlider');
+      const compressionValue = document.getElementById('compressionValue');
+      const compressionAmount = (100 - parseInt(compressionSlider.value)) / 100;
+
+      canvas.toBlob(function (blob) {
+        const url = URL.createObjectURL(blob);
+
+        const downloadLink = document.getElementById('downloadLink');
+        downloadLink.href = url;
+        downloadLink.download = "deep_fried.jpg";
+      }, "image/jpeg", compressionAmount);
+
+      compressionValue.textContent = `${compressionSlider.value}%`;
+    }
+
+      
+// Get the compression slider and its value element
+const compressionSlider = document.getElementById('compressionSlider');
+const compressionValue = document.getElementById('compressionValue');
+
+// Update the compression value element when the slider value changes
+compressionSlider.addEventListener('input', function () {
+  const sliderValue = compressionSlider.value;
+  compressionValue.textContent = `${sliderValue}%`;
+});
+// Add this code after the existing event listener for the compression slider
+
+// Get the compressed image element
+const compressedImage = document.getElementById('compressedImage');
+const dragArea = document.querySelector('.drag-area');
+const dragText = document.querySelector('.header');
+      
+let file;
+      
+dragArea.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dragText.textContent = 'Release to Upload'
+    dragArea.classList.add('active');  
+    console.log('File is inside the drag area');
+
+});
+
+dragArea.addEventListener('dragleave', () => {
+    dragText.textContent = 'Drag & Drop' ;
+    dragArea.classList.remove('active');  
+    console.log('File left the drag area');
+});
+
+dragArea.addEventListener('drop', (event) => {
+    event.preventDefault();
+    
+    file = event.dataTransfer.files[0];
+    
+    let fileType = file.type;
+    
+    let validExtensions = ['image/jpeg', 'image/jpg', 'image/png'];
+    
+    if (validExtensions.includes(fileType)) {
+        let fileReader = new FileReader();
+        
+        fileReader.onload = () => {
+            let fileURL = fileReader.result;
+            
+        let imgTag = `<img src="${fileURL}" alt="">`;
+            dragArea.innerHTML = imgTag;
+            
+        };
+        fileReader.readAsDataURL(file);
+    } else {
+        alert('i said jpg or png only bruhh');
+    }
+    
+    console.log('The file is dropped in the drag area');
+});
+    </script>
+</body>
+</html>
