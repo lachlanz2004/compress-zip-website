@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="186" height="186" viewBox="0 0 186 186">
+  <defs>
+    <clipPath id="clip-deepfry2">
+      <rect width="186" height="186"/>
+    </clipPath>
+  </defs>
+  <g id="deepfry2" clip-path="url(#clip-deepfry2)">
+    <g id="Group_1" data-name="Group 1" transform="translate(7 6)">
+      <path id="Subtraction_6" data-name="Subtraction 6" d="M109.6,94.153H30v-.12a24,24,0,0,1-16.007-7.871,24.943,24.943,0,0,1-6.53-16.829v-.046H7.45V6.5a6.5,6.5,0,0,1,13,0V65.582A16.7,16.7,0,0,0,24.779,75.9,16,16,0,0,0,35.45,81.15l69,0a15.559,15.559,0,0,0,10.513-5.233,16.855,16.855,0,0,0,4.2-10.52V6.5a6.5,6.5,0,0,1,13,0V69.286h-.027v.046a24.94,24.94,0,0,1-6.53,16.829A24,24,0,0,1,109.6,94.033v.119Z" transform="translate(14.55 52.348)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

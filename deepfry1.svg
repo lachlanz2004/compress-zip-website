@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="186" height="186" viewBox="0 0 186 186">
+  <defs>
+    <clipPath id="clip-deepfry1">
+      <rect width="186" height="186"/>
+    </clipPath>
+  </defs>
+  <g id="deepfry1" clip-path="url(#clip-deepfry1)">
+    <g id="Group_1" data-name="Group 1" transform="translate(7 6)">
+      <rect id="Rectangle_3" data-name="Rectangle 3" width="35" height="13" rx="6.5" transform="translate(142.197 29.848)" fill="#fff"/>
+      <rect id="Rectangle_4" data-name="Rectangle 4" width="43.904" height="13" rx="6.5" transform="translate(111.507 45.155) rotate(-23)" fill="#fff"/>
+      <rect id="Rectangle_8" data-name="Rectangle 8" width="78.286" height="13" rx="6.5" transform="matrix(-1, 0, 0, -1, 125.643, 55.348)" fill="#fff"/>
+      <rect id="Rectangle_9" data-name="Rectangle 9" width="78.286" height="13" rx="6.5" transform="matrix(0, 1, -1, 0, 60.357, 42.348)" fill="#fff"/>
+      <rect id="Rectangle_10" data-name="Rectangle 10" width="78.073" height="13" rx="6.5" transform="matrix(0, 1, -1, 0, 121.357, 42.561)" fill="#fff"/>
+      <rect id="Rectangle_11" data-name="Rectangle 11" width="78.073" height="13" rx="6.5" transform="matrix(0, 1, -1, 0, 80.357, 42.561)" fill="#fff"/>
+      <rect id="Rectangle_12" data-name="Rectangle 12" width="78.286" height="13" rx="6.5" transform="matrix(0, 1, -1, 0, 101.357, 42.348)" fill="#fff"/>
+      <rect id="Rectangle_13" data-name="Rectangle 13" width="74" height="12.848" rx="6.424" transform="matrix(-1, 0, 0, -1, 121.357, 120.634)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
