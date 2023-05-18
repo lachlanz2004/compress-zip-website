@@ -16,7 +16,8 @@
 }
 
 .container {
-  max-width: 800px;
+  max-width: 500px;
+  min-width: 499px;
   padding: 40px;
   background-color: #16181d;
   border-radius: 8px;    
@@ -68,13 +69,19 @@
 		}
       
 .slider-section {
+  position: static;
+  background: #1d2333;
+  border-radius: 8px;
+  padding: 11px 16px;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
 .slider-label {
-  margin-right: 10px;
+  font-weight: bold;
+  margin: 5px;
+  margin-left: 8px;
   color: white;
   animation: 
 }
@@ -92,6 +99,7 @@
 
 .compress-button {
  display: block;
+ font-weight: bold;
  background-color: #1d2333;
  border-radius: 8px;
  border-style: solid;
@@ -110,18 +118,19 @@
 }
 
 .compress-button:hover {
-			transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease;
+			.transform: scale(0.95);
+            transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease, transform 0.9s ease;;
             box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
 		}
       
 .compress-button:active {
-			background-color: #1B7F64;
 			transform: scale(0.95);
             transition: transform 0.2s ease;
 		}
       
 .download-link {
  display: block;
+ font-weight: bold;
  background-color: #5686f5;
  border-radius: 8px;
  color: white;
@@ -263,6 +272,7 @@ line-height: 25px;
       }
      .deep-fry {
   font-family: 'Inter', sans-serif;
+  font-weight: bold;
   display: block;
   margin-top: 10px;
   background-color: #1d2333;
@@ -274,7 +284,7 @@ line-height: 25px;
   font-size: 16px;
   width: 140px;
   min-width: 10px;
-  padding: 10px;
+  padding: 11px 6px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0);
   transition: filter 0.3s ease, box-shadow 0.3s ease;
   text-align: left;
@@ -282,7 +292,8 @@ line-height: 25px;
 } 
       .deep-fry:hover {
           filter:w saturate(500%) contrast(100%);
-          transition: filter 0.3s ease, box-shadow 0.3s ease;
+          .transform: scale(0.95);
+          transition: filter 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
           box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
 
       }
@@ -293,7 +304,7 @@ line-height: 25px;
       } 
   .deep-fry .icon {
   /* Fryer */
-  transform: translateX(15px) translateY(-0px);
+  transform: translateX(16px) translateY(-0px);
   top: 10px;
   margin: -8px;
   margin-right: 5px;
@@ -341,11 +352,8 @@ line-height: 25px;
       <input type="range" id="compressionSlider" min="1" max="100" value="80" class="slider">
       <span id="compressionValue" class="slider-value">80%</span>
     </div>
-         <div class="blank-image">
-    <img class="blank" src="blank.jpg" "blankimage" id="blankimage" class="blank-image">
-  </div>
-    <button onclick="compressAndDownload()" class="compress-button">Compress</button>
-      <button onclick="deepFryAndDownload()" class="deep-fry">Deep Fry<img class="icon" src="deepfry1.svg"><img class="icon2" src="deepfry2.svg"></button>
+    <button id="compressButton" onclick="compressAndDownload()" class="compress-button">Compress</button>
+      <button id="deepFryButton" onclick="deepFryAndDownload()" class="deep-fry">Deep Fry<img class="icon" src="deepfry1.svg"><img class="icon2" src="deepfry2.svg"></button>
     <a id="downloadLink" href="#" download class="download-link"><div><svg width="22" height="22" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"><path d="M21 15.5736V19.5736C21 20.104 20.7893 20.6127 20.4142 20.9878C20.0391 21.3629 19.5304 21.5736 19 21.5736H5C4.46957 21.5736 3.96086 21.3629 3.58579 20.9878C3.21071 20.6127 3 20.104 3 19.5736V15.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 10.5736L12 15.5736L17 10.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 15.5736V3.57361" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Download</a>
   </div>
 
@@ -358,6 +366,10 @@ function compressAndDownload() {
     return;
   }
 
+  const downloadLink = document.getElementById('downloadLink');
+  downloadLink.removeAttribute('disabled');
+
+      
   const image = dragArea.querySelector('img');
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
@@ -393,6 +405,9 @@ function deepFryAndDownload() {
         alert('Please drop an image file.');
         return;
       }
+
+   const downloadLink = document.getElementById('downloadLink');
+  downloadLink.removeAttribute('disabled');
 
       const image = dragArea.querySelector('img');
       const canvas = document.createElement('canvas');
