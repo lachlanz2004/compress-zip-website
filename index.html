@@ -144,8 +144,9 @@
  text-decoration: none;
 }
 .download-link:hover {
-            transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease, animation 0.3s ease;
             box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
+
 		}
 .download-link:active {
 			transform: scale(0.95);
@@ -302,16 +303,10 @@ line-height: 25px;
       			transform: scale(0.95);
             transition: transform 0.2s ease;
       } 
-  .deep-fry .icon {
-  /* Fryer */
-  transform: translateX(16px) translateY(-0px);
-  top: 10px;
-  margin: -8px;
-  margin-right: 5px;
-  color: #5686f5;
-  width: 25%;
-  height: 25%;
-  z-index: 3;
+
+.deep-fry {
+  position: relative; /* Add position: relative to the container */
+  display: inline-block; /* Adjust display property as needed */
 }
 
 .deep-fry .icon2 {
@@ -321,10 +316,73 @@ line-height: 25px;
   color: #5686f5;
   width: 25%;
   height: 25%;
-}  
-      .deep-fry img {
-    filter: saturate(5) contrast(5); /* Adjust the values as desired */
-  }
+  z-index: 1; /* Set z-index to a lower value */
+
+}
+
+
+.deep-fry .icon {
+  /* Fryer */
+  position: relative; /* Add position: relative to the fryer */
+  transform: translateX(16px) translateY(-10px);
+  top: 10px;
+  margin: -8px;
+  margin-right: 5px;
+  color: #5686f5;
+  width: 25%;
+  height: 25%;
+  z-index: 1; /* Set z-index to a higher value */
+
+}
+
+
+.deep-fry:hover .icon {
+  animation: bounce 0.5s infinite;
+}   
+
+
+.deep-fry:hover .icon2 {
+  animation: bounce2 0.5s infinite;
+}         
+@keyframes bounce {
+  0% { transform: translateY(0px) translateX(16px) translateY(-10px); }
+  25% { transform: translateY(-5px) translateX(16px) translateY(-10px); }
+  75% { transform: translateY(-6px) translateX(16px) translateY(-10px); }
+  100% { transform: translateY(-0px) translateX(16px) translateY(-10px); }
+}
+
+@keyframes bounce2 {
+  0% { transform: translateY(0px) translateX(2px) translateY(-10px); }
+  25% { transform: translateY(-2px) translateX(2px) translateY(-10px); }
+  75% { transform: translateY(-3px) translateX(2px) translateY(-10px); }
+  100% { transform: translateY(-0px) translateX(2px) translateY(-10px); }
+}
+
+@keyframes download {
+  0% { transform: translateY(0px) scaleY(100%); }
+  25% { transform: translateY(-5px) scaleY(107%); }
+  75% { transform: translateY(-6px) scaleY(110%); }
+  100% { transform: translateY(-0px) scaleY(100%); }
+
+}
+      
+
+
+
+      .download-link:hover .download-icon {
+  animation: download 0.5s infinite;
+
+      }
+
+
+
+
+
+
+
+
+
+
   </style>
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
@@ -354,7 +412,7 @@ line-height: 25px;
     </div>
     <button id="compressButton" onclick="compressAndDownload()" class="compress-button">Compress</button>
       <button id="deepFryButton" onclick="deepFryAndDownload()" class="deep-fry">Deep Fry<img class="icon" src="deepfry1.svg"><img class="icon2" src="deepfry2.svg"></button>
-    <a id="downloadLink" href="#" download class="download-link"><div><svg width="22" height="22" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"><path d="M21 15.5736V19.5736C21 20.104 20.7893 20.6127 20.4142 20.9878C20.0391 21.3629 19.5304 21.5736 19 21.5736H5C4.46957 21.5736 3.96086 21.3629 3.58579 20.9878C3.21071 20.6127 3 20.104 3 19.5736V15.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 10.5736L12 15.5736L17 10.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 15.5736V3.57361" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Download</a>
+    <a id="downloadLink" href="#" download class="download-link"><div><svg class="download-icon" width="22" height="22" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"><path d="M21 15.5736V19.5736C21 20.104 20.7893 20.6127 20.4142 20.9878C20.0391 21.3629 19.5304 21.5736 19 21.5736H5C4.46957 21.5736 3.96086 21.3629 3.58579 20.9878C3.21071 20.6127 3 20.104 3 19.5736V15.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 10.5736L12 15.5736L17 10.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 15.5736V3.57361" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Download</a>
   </div>
 
   <script>
