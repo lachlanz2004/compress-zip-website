@@ -449,8 +449,9 @@ line-height: 25px;
 <div id="feedbackPopup" class="overlay-container">
   <div class="popup">
     <h2>This will take you to an external link, would you like to proceed?</h2>
+	 <h4>https://forms.gle/LVcZFuRV44Kcn6Na8</h4>
     <div class="button-container">
-      <button onclick="closeFeedbackPopup()">Cancelo</button>
+      <button onclick="closeFeedbackPopup()">Cancel</button>
       <button onclick="openLinkInNewTab()">Open link</button>
     </div>
   </div>
@@ -492,7 +493,7 @@ line-height: 25px;
 
   function openLinkInNewTab() {
     // Replace the link with the desired URL
-    var link = 'https://www.example.com';
+    var link = 'https://forms.gle/LVcZFuRV44Kcn6Na8';
     window.open(link, '_blank');
     closeFeedbackPopup();
   }
