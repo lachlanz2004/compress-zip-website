@@ -320,7 +320,6 @@ line-height: 25px;
 
 }
 
-
 .deep-fry .icon {
   /* Fryer */
   position: relative; /* Add position: relative to the fryer */
@@ -335,11 +334,9 @@ line-height: 25px;
 
 }
 
-
 .deep-fry:hover .icon {
   animation: bounce 0.5s infinite;
 }   
-
 
 .deep-fry:hover .icon2 {
   animation: bounce2 0.5s infinite;
@@ -365,15 +362,73 @@ line-height: 25px;
   100% { transform: translateY(-0px) scaleY(100%); }
 
 }
-      
-
-
 
       .download-link:hover .download-icon {
   animation: download 0.5s infinite;
 
       }
 
+#feedbackButton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  background-color: #5686f5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 11px 2px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0);
+  z-index: 2;
+     margin-top: 40px;
+
+}
+
+.overlay-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #16181d;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  z-index: 2;
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.button-container button {
+  margin-left: 10px;
+  background-color: #343540;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #57586A;
+  cursor: pointer;
+  font-size: 16px;
+}
 
 
 
@@ -389,7 +444,18 @@ line-height: 25px;
 </style>
 </head>
 <body>
-  <div class="container">
+  <button id="feedbackButton" onclick="openFeedbackPopup()">Submit Feedback</button>
+
+<div id="feedbackPopup" class="overlay-container">
+  <div class="popup">
+    <h2>This will take you to an external link, would you like to proceed?</h2>
+    <div class="button-container">
+      <button onclick="closeFeedbackPopup()">Cancelo</button>
+      <button onclick="openLinkInNewTab()">Open link</button>
+    </div>
+  </div>
+</div>
+    <div class="container">
     <div class="upload-section">
        <div class="drop-container">
      <h3>Upload your File</h3>
@@ -416,6 +482,21 @@ line-height: 25px;
   </div>
 
   <script>
+ function openFeedbackPopup() {
+    document.getElementById('feedbackPopup').style.display = 'block';
+  }
+
+  function closeFeedbackPopup() {
+    document.getElementById('feedbackPopup').style.display = 'none';
+  }
+
+  function openLinkInNewTab() {
+    // Replace the link with the desired URL
+    var link = 'https://www.example.com';
+    window.open(link, '_blank');
+    closeFeedbackPopup();
+  }
+      
 function compressAndDownload() {
   const dragArea = document.querySelector('.drag-area');
 
