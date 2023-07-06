@@ -7,12 +7,13 @@
   background-color: #16181d;
   display: flex;
   justify-content: center;
-  align-items: cente r;
+  align-items: center;
   height: 100vh;
   margin: 0;
   color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   font-family: 'Inter', sans-serif;
+     
 }
 
 .container {
@@ -22,6 +23,7 @@
   background-color: #16181d;
   border-radius: 8px;    
   font-family: 'Inter', sans-serif;
+    
 
 }
 
@@ -119,7 +121,7 @@
 
 .compress-button:hover {
 			.transform: scale(0.95);
-            transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease, transform 0.9s ease;;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease, transform 0.3s ease;;
             box-shadow: 0px 2px 40px rgba(30, 91, 234, 0.1);
 		}
       
@@ -371,21 +373,20 @@ line-height: 25px;
 #feedbackButton {
   position: fixed;
   top: 10px;
-  right: 10px;
+  right: 100px;
   font-weight: bold;
   background-color: #5686f5;
   color: white;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  padding: 11px 2px;
+  padding: 11px 20px;
   border-radius: 8px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0);
   z-index: 2;
-     margin-top: 40px;
-
+  margin-top: 40px;
 }
-
+      
 .overlay-container {
   display: none;
   position: fixed;
@@ -420,19 +421,36 @@ line-height: 25px;
 }
 
 .button-container button {
-  margin-left: 10px;
-  background-color: #343540;
+  margin-left: 20px;
+  background-color: #1d2333;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  color: #57586A;
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: white;
   cursor: pointer;
   font-size: 16px;
+      font-weight: bold;
+
 }
 
+.popup h4 {
+color: #57586A
+      }
 
+#logo-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
 
-
+#logo-container img {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+}
 
 
 
@@ -444,12 +462,16 @@ line-height: 25px;
 </style>
 </head>
 <body>
+    <div id="logo-container">
+  <img src="compressme_logo.svg" alt="Logo">
+</div>
+
   <button id="feedbackButton" onclick="openFeedbackPopup()">Submit Feedback</button>
 
 <div id="feedbackPopup" class="overlay-container">
   <div class="popup">
     <h2>This will take you to an external link, would you like to proceed?</h2>
-	 <h4>https://forms.gle/LVcZFuRV44Kcn6Na8</h4>
+	 <h4 class="popup2">https://forms.gle/LVcZFuRV44Kcn6Na8</h4>
     <div class="button-container">
       <button onclick="closeFeedbackPopup()">Cancel</button>
       <button onclick="openLinkInNewTab()">Open link</button>
@@ -537,49 +559,62 @@ function compressAndDownload() {
   compressionValue.textContent = `${compressionSlider.value}%`;
 }
 
-// DEEP FRY CODE
 function deepFryAndDownload() {
-      const dragArea = document.querySelector('.drag-area');
+  const dragArea = document.querySelector('.drag-area');
 
-      if (!dragArea.innerHTML) {
-        alert('Please drop an image file.');
-        return;
-      }
+  if (!dragArea.innerHTML) {
+    alert('Please drop an image file.');
+    return;
+  }
 
-   const downloadLink = document.getElementById('downloadLink');
+  const downloadLink = document.getElementById('downloadLink');
   downloadLink.removeAttribute('disabled');
 
-      const image = dragArea.querySelector('img');
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+  const image = dragArea.querySelector('img');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
 
-      const width = image.width;
-      const height = image.height;
+  const width = image.width;
+  const height = image.height;
 
-      canvas.width = width;
-      canvas.height = height;
+  canvas.width = width;
+  canvas.height = height;
 
-      context.drawImage(image, 0, 0, width, height);
+  context.drawImage(image, 0, 0, width, height);
 
-      // Apply saturation and contrast adjustments
-      context.filter = 'saturate(500%) contrast(500%)';
+  const imageData = context.getImageData(0, 0, width, height);
+  const data = imageData.data;
 
-      const compressionSlider = document.getElementById('compressionSlider');
-      const compressionValue = document.getElementById('compressionValue');
-      const compressionAmount = (100 - parseInt(compressionSlider.value)) / 100;
+  // Apply saturation and contrast adjustments
+  for (let i = 0; i < data.length; i += 4) {
+    const red = data[i];
+    const green = data[i + 1];
+    const blue = data[i + 2];
 
-      canvas.toBlob(function (blob) {
-        const url = URL.createObjectURL(blob);
+    // Apply saturation adjustment
+    const grayscale = red * 0.299 + green * 0.587 + blue * 0.114;
+    data[i] = grayscale + (red - grayscale) * 5;
+    data[i + 1] = grayscale + (green - grayscale) * 5;
+    data[i + 2] = grayscale + (blue - grayscale) * 5;
+  }
 
-        const downloadLink = document.getElementById('downloadLink');
-        downloadLink.href = url;
-        downloadLink.download = "deep_fried.jpg";
-      }, "image/jpeg", compressionAmount);
+  context.putImageData(imageData, 0, 0);
 
-      compressionValue.textContent = `${compressionSlider.value}%`;
-    }
+  const compressionSlider = document.getElementById('compressionSlider');
+  const compressionValue = document.getElementById('compressionValue');
+  const compressionAmount = (100 - parseInt(compressionSlider.value)) / 100;
 
-      
+  canvas.toBlob(function (blob) {
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.getElementById('downloadLink');
+    downloadLink.href = url;
+    downloadLink.download = 'deep_fried.jpg';
+  }, 'image/jpeg', compressionAmount);
+
+  compressionValue.textContent = `${compressionSlider.value}%`;
+}
+
 // Get the compression slider and its value element
 const compressionSlider = document.getElementById('compressionSlider');
 const compressionValue = document.getElementById('compressionValue');
@@ -638,6 +673,11 @@ dragArea.addEventListener('drop', (event) => {
     
     console.log('The file is dropped in the drag area');
 });
+      
+
+
+
+
     </script>
 </body>
 </html>
