@@ -126,7 +126,7 @@
 		}
       
 .compress-button:active {
-			transform: scale(0.95);
+			transform: scale(0.9);
             transition: transform 0.2s ease;
 		}
       
@@ -151,7 +151,7 @@
 
 		}
 .download-link:active {
-			transform: scale(0.95);
+			transform: scale(0.9);
             transition: transform 0.2s ease;
 		}
 .overlay-container {
@@ -441,15 +441,28 @@ color: #57586A
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scaleX(1);
+  transform-origin: left;
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 
 #logo-container img {
   width: 100px;
-  height: 100px;
-  margin: 20px;
+  height: auto;
+  margin: 20px;  
+}
+
+.blank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 3;
 }
 
 
@@ -501,6 +514,7 @@ color: #57586A
     </div>
     <button id="compressButton" onclick="compressAndDownload()" class="compress-button">Compress</button>
       <button id="deepFryButton" onclick="deepFryAndDownload()" class="deep-fry">Deep Fry<img class="icon" src="deepfry1.svg"><img class="icon2" src="deepfry2.svg"></button>
+        <div class="overlay-container blank"></div>
     <a id="downloadLink" href="#" download class="download-link"><div><svg class="download-icon" width="22" height="22" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"><path d="M21 15.5736V19.5736C21 20.104 20.7893 20.6127 20.4142 20.9878C20.0391 21.3629 19.5304 21.5736 19 21.5736H5C4.46957 21.5736 3.96086 21.3629 3.58579 20.9878C3.21071 20.6127 3 20.104 3 19.5736V15.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 10.5736L12 15.5736L17 10.5736" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 15.5736V3.57361" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Download</a>
   </div>
 
@@ -674,6 +688,89 @@ dragArea.addEventListener('drop', (event) => {
     console.log('The file is dropped in the drag area');
 });
       
+
+{const logoContainer = document.getElementById('logo-container');
+const logoImage = document.getElementById('logo-container').querySelector('img');
+
+let originalWidth;
+let originalHeight;
+
+compressButton.addEventListener('mousedown', () => {
+  compressing = true;
+  logoContainer.style.transition = 'transform 0.05s ease-in-out';
+  originalWidth = logoContainer.offsetWidth;
+  originalHeight = logoContainer.offsetHeight;
+  const scaleRatio = 0.5;
+  const translateX = (1 - scaleRatio) * originalWidth / 1;
+  logoContainer.style.transformOrigin = 'left';
+  logoContainer.style.transform = `scaleX(${scaleRatio}) translateX(-${translateX}px)`;
+});
+
+compressButton.addEventListener('mouseup', () => {
+  compressing = false;
+  logoContainer.style.transition = 'transform 0.6s ease-in-out';
+
+  // Calculate the correct translateX value for resetting the transformation
+  const scaleRatio = 0.5;
+  const translateX = (1 - scaleRatio) * originalWidth / 2;
+
+  // Calculate the current translation amount from the current transform CSS value
+  const currentTransform = window.getComputedStyle(logoContainer).getPropertyValue('transform');
+  const currentTranslateX = parseFloat(currentTransform.split(',')[4]);
+
+  // Calculate the new translateX value for resetting the transformation
+  const newTranslateX = currentTranslateX - translateX;
+
+  logoContainer.style.transform = `scaleX(1) translateX(${newTranslateX}px)`;
+});
+
+logoContainer.addEventListener('transitionend', () => {
+  if (!compressing) {
+    logoContainer.style.transition = 'none';
+  }
+});
+
+ 
+deepFryButton.addEventListener('mousedown', () => {
+  compressing = true;
+  logoContainer.style.transition = 'transform 0.05s ease-in-out';
+  originalWidth = logoContainer.offsetWidth;
+  originalHeight = logoContainer.offsetHeight;
+  const scaleRatio = 0.5;
+  const translateX = (1 - scaleRatio) * originalWidth / 1;
+  logoContainer.style.transformOrigin = 'left';
+  logoContainer.style.transform = `scaleX(${scaleRatio}) translateX(-${translateX}px)`;
+});
+
+deepFryButton.addEventListener('mouseup', () => {
+  compressing = false;
+  logoContainer.style.transition = 'transform 0.6s ease-in-out';
+
+  // Calculate the correct translateX value for resetting the transformation
+  const scaleRatio = 0.5;
+  const translateX = (1 - scaleRatio) * originalWidth / 2;
+
+  // Calculate the current translation amount from the current transform CSS value
+  const currentTransform = window.getComputedStyle(logoContainer).getPropertyValue('transform');
+  const currentTranslateX = parseFloat(currentTransform.split(',')[4]);
+
+  // Calculate the new translateX value for resetting the transformation
+  const newTranslateX = currentTranslateX - translateX;
+
+  logoContainer.style.transform = `scaleX(1) translateX(${newTranslateX}px)`;
+});
+
+logoContainer.addEventListener('transitionend', () => {
+  if (!compressing) {
+    logoContainer.style.transition = 'none';
+  }
+});
+
+}
+
+
+
+
 
 
 
