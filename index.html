@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Design Popup</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    background: white;
+    border-radius: 0px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  .card img {
+    width: 100%;
+    display: block;
+  }
+  .card button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1) translateY(2000px);
+    background: white;
+    border: none;
+    border-radius: 0px;
+    padding: 0px;
+    width: 80%;
+    max-width: 950px;
+    z-index: 10;
+    transition: transform 1s cubic-bezier(0.95, 0.15, 0.15, 0.95);
+    overflow: auto;
+    border-radius: 20px;
+      
+  }
+    .popup .content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+  .popup.active {
+    transform: translate(-50%, -50%) scale(1) translateY(30px);
+    transition: transform 1s cubic-bezier(0.95, 0.15, 0.15, 0.95);
+  }
+  .popup .content {
+    margin-bottom: 20px;
+    .padding-left: 30px;
+    padding-left: 110px;
+  }
+  .popup button {
+    background: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+      
+  }
+  .popup img {
+    max-width: 100%;
+    border-radius: 0px;
+    border: none;
+
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s cubic-bezier(0.95, 0.15, 0.15, 0.95);
+  }
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s cubic-bezier(0.95, 0.15, 0.15, 0.95);
+  }
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 360px;
+        position: absolute;
+        left: 400px;
+    
+  /* Add any other styles you need for your button */
+    }
+    .bold {
+        font-weight: bold;
+        font-size: 54px;
+        position: absolute;
+        top: 500px;
+        left: 30px;
+
+    }
+    .bold2 {
+        font-weight: bold;
+        font-size: 34px;
+        padding-bottom: 10px;
+        position: absolute;
+        top: 1780px;
+
+    }
+    .italic {
+        font-style: italic;
+        color: darkgray;
+    }
+    .video {
+        /*max-width: 890px;*/
+        max-width: 750px;
+        border: solid white;
+        border-radius: 20.5px;
+        left: 100px;
+        position: absolute;
+    }
+    .video2 {
+        /*max-width: 890px;*/
+        max-width: 750px;
+        border: solid white;
+        border-radius: 20.5px;
+        left: 100px;
+        position: absolute;
+        top: 1890px;
+    }
+    .text {
+        .max-width: 900px;
+        max-width: 750px;
+    }
+    .timeline {
+        position: absolute;
+        left: 35px;
+        top: 240px;
+    }
+    .bottom {
+        position: absolute;
+        left: 102px;
+        bottom: -510px;
+    }
+    .semi_bold {
+        font-weight: bold;
+        font-size: 34px;
+        padding-bottom: 10px;
+    }
+    .date {
+        max-width: 750px;
+        font-style: bold;
+        color: darkgray;
+    }
+    
+
+</style>
+</head>
+<body>
+
+<div class="card">
+  <img src="hub1.png">
+  <button onclick="openPopup(this)">go to Hub</button>
+</div>
+
+<div class="popup" id="popup">
+    <img src="hub2.png">
+    <div class="content">
+    <h1 class="bold" >Performance Hub</h1>
+        <img class="timeline" src="timeline.png">
+    <div events>
+        <div class="semi_bold">Current Events</div>
+        <div class="text">EduFest 2023</div>
+        <div class="date">November 31</div>
+        <br>
+        <div class="text">School Symposium Spectacle</div>
+        <div class="date">November 32</div>
+        <br>
+        <div class="text">Academic Extravaganza Gala</div>
+        <div class="date">November 36</div>
+        <br>
+        <div class="text">Learning Carnival Expo
+        <div class="date">December 0</div>
+        <br>
+        <br>
+</div>
+        <div class="date"></div>
+    </div>
+    <div information>
+        <div class="semi_bold">Information</div>
+        <p class="italic">EST 2019</p>
+            <p class="text">Designed by Morson Group Architects, St John XXIII College Performance Hub is an ambitious multi-purpose centre dedicated to an environment for those students who want to thrive in theatre, dance and music.
+            <br>
+            <br>A uniquely distinct triangular shape defines the performance hub with its bold yet functional, acoustic design for the hall. The space’s sweeping angular ceilings and other design features lent themselves to subtle lighting challenges. The appointment of JHA Consulting Engineers brought a collaborative team onboard to resolve the Hall’s lighting with precision. 
+            <br>
+        </p>
+        <br>
+        <video id="hubVideo" class="video" autoplay loop muted >
+            <source src="hub_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div directions>
+        <h2 class="bold2">Directions</h2>
+        <video class="video2" autoplay loop muted >
+            <source src="hub_video_directions.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="bottom">d
+        </p>
+    </div>
+    </div>
+    <div class="button">
+      <button onclick="closePopup()">Back button</button>
+    </div>
+    
+</div>
+
+<div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+<script>
+  function openPopup(button) {
+    var popup = document.getElementById('popup');
+    var overlay = document.getElementById('overlay');
+    var cardRect = button.parentElement.getBoundingClientRect();
+    var popupRect = popup.getBoundingClientRect();
+
+
+      popup.style.width = '950px';
+      popup.style.height = '1500px';
+
+
+    setTimeout(function() {
+      popup.classList.add('active');
+      overlay.classList.add('active');
+    }, 10);
+  }
+
+  function closePopup() {
+    var popup = document.getElementById('popup');
+    var overlay = document.getElementById('overlay');
+    popup.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+    // Get the video element
+var video = document.getElementById('hubVideo');
+
+// Set the starting time in seconds
+var startTime = 11;
+
+// Set the starting time of the video
+video.addEventListener('loadedmetadata', function() {
+  this.currentTime = startTime;
+});
+
+
+</script>
+
+</body>
+</html>
